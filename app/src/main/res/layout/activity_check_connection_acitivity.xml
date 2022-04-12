@@ -15,7 +15,7 @@
         android:layout_marginEnd="2dp"
         android:layout_marginBottom="4dp"
         app:layout_constraintBottom_toTopOf="@+id/scrollView3"
-        app:layout_constraintEnd_toStartOf="@+id/btn_check_connection_target_select"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -31,32 +31,18 @@
         </LinearLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/btn_check_connection_target_select"
-        android:layout_width="0dp"
-        android:layout_height="83dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginBottom="4dp"
-        android:text="select"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/scrollView2"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ScrollView
         android:id="@+id/scrollView3"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_check_connection_target_select">
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2">
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -10,6 +10,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -26,7 +27,8 @@ import java.util.Set;
 public class CheckConnectionAcitivity extends AppCompatActivity {
 
     private ListView listView = null;
-
+    private String seletedItemsName[];
+    private boolean seletedItemsflag[];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,11 +43,15 @@ public class CheckConnectionAcitivity extends AppCompatActivity {
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String data = (String) parent.getItemAtPosition(position);
-
+                if(seletedItemsflag[position]==false){
+                    seletedItemsflag[position]=true;
+                    view.setBackgroundColor(Color.YELLOW);
+                }else{
+                    seletedItemsflag[position]=false;
+                    view.setBackgroundColor(Color.WHITE);
+                }
             }
         });
 
@@ -57,13 +63,6 @@ public class CheckConnectionAcitivity extends AppCompatActivity {
             if (!mBtadapter.isEnabled()) {
                 Intent enableAdapter = new Intent(mBtadapter.ACTION_REQUEST_ENABLE);
                 if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
                     return;
                 }
                 startActivityForResult(enableAdapter, 0);
@@ -72,12 +71,20 @@ public class CheckConnectionAcitivity extends AppCompatActivity {
             // Do whatever you want to do with your bluetoothAdapter
             Set<BluetoothDevice> all_devices = mBtadapter.getBondedDevices();
             if (all_devices.size() > 0) {
+                seletedItemsName = new String[all_devices.size()+3];
+                seletedItemsflag = new boolean[all_devices.size()+3];
+                int i =0;
                 for (BluetoothDevice currentDevice : all_devices) {
                     //log.i("Device Name " + currentDevice.getName());
-                    adapter.add(currentDevice.getName());
+                    list.add(currentDevice.getName());
+                    seletedItemsName[i] = currentDevice.getName();
                 }
             }
+            list.add("test1");
+            list.add("test2");
+            list.add("test3");
             adapter.notifyDataSetChanged();
         }
+
     }
 }
