@@ -13,6 +13,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -45,6 +46,7 @@ public class CheckConnectionAcitivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("hello","position"+position);
                 if(seletedItemsflag[position]==false){
                     seletedItemsflag[position]=true;
                     view.setBackgroundColor(Color.YELLOW);
@@ -70,10 +72,11 @@ public class CheckConnectionAcitivity extends AppCompatActivity {
 
             // Do whatever you want to do with your bluetoothAdapter
             Set<BluetoothDevice> all_devices = mBtadapter.getBondedDevices();
+
             if (all_devices.size() > 0) {
+                int i =0;
                 seletedItemsName = new String[all_devices.size()+3];
                 seletedItemsflag = new boolean[all_devices.size()+3];
-                int i =0;
                 for (BluetoothDevice currentDevice : all_devices) {
                     //log.i("Device Name " + currentDevice.getName());
                     list.add(currentDevice.getName());
