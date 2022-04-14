@@ -1,3 +1,5 @@
+//
+
 package com.example.bluetooth_function;
 
 import static com.example.bluetooth_function.MainActivity.mBtadapter;
