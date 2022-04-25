@@ -37,41 +37,47 @@ public class CheckConnectionAcitivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_connection_acitivity);
 
-
         listView = findViewById(R.id.lv_check_connection_paird_items);
         List<String> list = new ArrayList<>();
-
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
         listView.setAdapter(adapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("hello","position"+position);
-                if(seletedItemsflag[position]==false){
-                    seletedItemsflag[position]=true;
-                    view.setBackgroundColor(Color.YELLOW);
-                }else{
-                    seletedItemsflag[position]=false;
-                    view.setBackgroundColor(Color.WHITE);
-                }
-            }
-        });
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Log.d("hello","position"+position);
+//                if(seletedItemsflag[position]==false){
+//                    seletedItemsflag[position]=true;
+//                    view.setBackgroundColor(Color.YELLOW);
+//                }else{
+//                    seletedItemsflag[position]=false;
+//                    view.setBackgroundColor(Color.WHITE);
+//                }
+//            }
+//        });
 
         if (mBtadapter == null) {
             // device doesn't support bluetooth
         } else {
-
             // bluetooth is off, ask user to on it.
-            if (!mBtadapter.isEnabled()) {
-                Intent enableAdapter = new Intent(mBtadapter.ACTION_REQUEST_ENABLE);
-                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-                    return;
-                }
-                startActivityForResult(enableAdapter, 0);
-            }
+            boolean a = true;
 
+            Intent enableAdapter = new Intent(mBtadapter.ACTION_REQUEST_ENABLE);
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            startActivityForResult(enableAdapter, 0);
+
+            while(a) {
+                if (!mBtadapter.isEnabled()) {
+                    Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                    startActivityForResult(enableBtIntent, 10);
+                }
+                if (mBtadapter.isEnabled()) {
+                    a = false;
+                }
+            }
             // Do whatever you want to do with your bluetoothAdapter
             Set<BluetoothDevice> all_devices = mBtadapter.getBondedDevices();
 
